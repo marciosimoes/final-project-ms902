@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="robots" content="noindex">
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+  <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+  <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+  <style type='text/css'>
+    .row-index {
+      width: 50px;
+      display: inline-block;
+    }
+  </style>
+  <script type='text/javascript'>
+    $(window).load(function(){
+      var columns = {{ columns | tojson }};
+      $(function() {
+        $('#table').bootstrapTable({
+          columns: columns,
+        });
+      });
+      function queryParams(params) {
+        var options = $('#table').bootstrapTable('getOptions')
+        if (!options.pagination) {
+            params.limit = options.totalRows
+        }
+        return params
+      }
+    });
+  </script>
+</head>
+<body>
+  <div class="container" style="padding: 10px; ">
+    <h1>{{title}}</h1>
+    {% if subtitle %}
+    <h3>{{subtitle}}</h3>
+    {% endif %}
+    <hr>
+    <a href="/" class="btn btn-primary {% if title == "Logs" %} active {% endif %}" role="button" aria-pressed="true">Inicio</a>
+    <a href="/noticias" class="btn btn-primary {% if title == "Noticias" %} active {% endif %}" role="button" aria-pressed="true">Noticias</a>
+    <a href="/empresas" class="btn btn-primary {% if title == "Empresas" %} active {% endif %}" role="button" aria-pressed="true">Empresas</a>
+    <a href="/sinonimos" class="btn btn-primary {% if title == "Sinonimos" %} active {% endif %}" role="button" aria-pressed="true">Sinonimos</a>
+    <a href="/api/{{url_data}}" class="btn btn-secondary btn-sm">Ver JSON</a>
+    <br />
+    <div id="toolbar"></div>
+    <table
+      id="table"
+      data-url="/api/{{url_data}}/view"
+      data-side-pagination="server"
+      data-toggle="true"
+      data-toolbar="#toolbar"
+      data-show-export="true"
+      {% if not subtitle %}
+      data-search="true"
+      {% endif %}
+      data-show-columns="true"
+      data-pagination="true"
+      data-height="460"
+      data-export-data-type="all"
+    </table>
+  </div>
+</body>
+</html>

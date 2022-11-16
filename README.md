@@ -16,3 +16,4 @@ We built two applications in Python, one responsible for get these news through 
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![SQL](https://img.shields.io/static/v1?style=for-the-badge&message=SQL&color=222222&logo=sql&logoColor=A8B9CC&label=)
 ![Databricks](https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=Databricks&logoColor=white)
+

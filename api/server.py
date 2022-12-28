@@ -1,7 +1,7 @@
 import json
 import os
-from connection import *
-from columns_table import *
+from .connection import *
+from .columns_table import *
 
 def pegar_requests():
     return [ request.args.get('sort'),
